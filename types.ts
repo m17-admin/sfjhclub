@@ -24,16 +24,17 @@ export interface Club {
 export interface AttendanceRecord {
   id: string;
   clubId: string;
-  date: string; // ISO String
-  records: Record<string, AttendanceStatus>; // memberId -> status
+  date: string; 
+  records: Record<string, AttendanceStatus>;
   notes?: string;
+  updatedAt?: number; // 用於比對同步順序
 }
 
 export interface LeaveRecord {
   id: string;
   memberId: string;
   studentName: string;
-  date: string; // YYYY-MM-DD
+  date: string;
   reason: string;
 }
 
@@ -45,10 +46,13 @@ export interface User {
   name: string;
   assignedClubId?: string;
   assignedClassName?: string;
+  syncCode?: string; // 使用者指定的同步代碼
 }
 
 export interface AppState {
   clubs: Club[];
   attendanceRecords: AttendanceRecord[];
-  leaveRecords: LeaveRecord[]; // 新增：請假紀錄
+  leaveRecords: LeaveRecord[];
+  syncCode?: string;
+  lastSyncedAt?: number;
 }

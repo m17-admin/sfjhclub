@@ -1,5 +1,5 @@
 {
-  "name": "Copy of ClubRoll - 湖口國中社團活動智能點名系統",
+  "name": "新豐國中社團活動智能點名系統",
   "description": "一個專業且美觀的社團點名管理系統，支持多社團管理、成員名單維護、即時點名統計以及 AI 智能出勤分析報告。",
   "requestFramePermissions": [
     "camera"

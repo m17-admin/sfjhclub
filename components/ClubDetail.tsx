@@ -81,6 +81,17 @@ const ClubDetail: React.FC<ClubDetailProps> = ({ state, role, user, addMember, u
     }
   };
 
+  const handleClubDeleteRequest = () => {
+    if (club.members.length > 0) {
+      alert(`此社團尚有 ${club.members.length} 名成員，請先清空名單後再刪除社團。`);
+      return;
+    }
+    if (confirm(`確定要永久刪除社團「${club.name}」嗎？`)) {
+      deleteClub(club.id);
+      navigate('/');
+    }
+  };
+
   const executeRevoke = (leaveId: string) => {
     if (!cancelLeave) return;
     if (confirm('確定要撤銷此請假紀錄嗎？撤銷後該學生將恢復為「應出席」狀態。')) {
@@ -131,7 +142,7 @@ const ClubDetail: React.FC<ClubDetailProps> = ({ state, role, user, addMember, u
         {role === 'admin' && (
           <div className="flex items-center gap-2">
             <button onClick={() => { setClubEditForm({ name: club.name, description: club.description || '' }); setShowClubEditModal(true); }} className="p-2 text-indigo-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-colors border-none bg-transparent cursor-pointer" title="編輯社團"><Edit3 className="w-5 h-5" /></button>
-            <button onClick={() => { if(confirm('確定要永久刪除此社團嗎？')) { deleteClub(club.id); navigate('/'); } }} className="p-2 text-slate-300 hover:text-rose-500 transition-colors border-none bg-transparent cursor-pointer" title="刪除社團"><Trash2 className="w-5 h-5" /></button>
+            <button onClick={handleClubDeleteRequest} className={`p-2 transition-colors border-none bg-transparent cursor-pointer ${club.members.length > 0 ? 'text-slate-200' : 'text-slate-300 hover:text-rose-500'}`} title={club.members.length > 0 ? "需清空名單才可刪除" : "刪除社團"}><Trash2 className="w-5 h-5" /></button>
           </div>
         )}
       </div>
